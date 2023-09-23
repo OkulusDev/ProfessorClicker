@@ -2437,7 +2437,7 @@ padding: 5px;</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="1" column="1">
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="up_university_ten_hundred_btn">
          <property name="text">
           <string>1000$</string>
          </property>
@@ -2451,7 +2451,7 @@ padding: 5px;</string>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="up_university_ten_btn">
          <property name="text">
           <string>100$</string>
          </property>
@@ -2472,7 +2472,7 @@ padding: 5px;</string>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="pushButton_7">
+        <widget class="QPushButton" name="up_university_thousand_btn">
          <property name="text">
           <string>10000$</string>
          </property>
@@ -2496,7 +2496,7 @@ padding: 5px;</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="simple_course_btn">
          <property name="text">
           <string>50$</string>
          </property>
@@ -2517,7 +2517,7 @@ padding: 5px;</string>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="hundred_math_btn">
          <property name="text">
           <string>100$</string>
          </property>
@@ -2538,75 +2538,16 @@ padding: 5px;</string>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="thousand_math_btn">
          <property name="text">
           <string>1000$</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="five_thousands_math_btn">
          <property name="text">
           <string>5000$</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_7">
-     <attribute name="title">
-      <string>Информация</string>
-     </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>721</width>
-        <height>441</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Престиж университета: 0/10</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>Доход: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_15">
-         <property name="text">
-          <string>Уровень: 1</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Студенты: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Деньги: 0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Знание: 0</string>
          </property>
         </widget>
        </item>

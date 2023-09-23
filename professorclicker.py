@@ -8,7 +8,8 @@ from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
 money = 0
 students = 0
-income = 1
+income = 1000
+university_seats = 100
 knowledge = 1
 professor_level = 1
 levels_labels = {
@@ -67,7 +68,7 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		self.money_label.setText(f'Деньги: {money}$')
 		self.income_label.setText(f'Доход: {income}$')
 		self.player_lvl.setText(f'Уровень: {professor_level}')
-		self.students_label.setText(f'Студенты: {students}')
+		self.students_label.setText(f'Студенты: {students}/{university_seats}')
 		self.knowledge_label.setText(f'Знания: {knowledge}')
 
 		self.player_lvl.setText(f'Уровень: {professor_level}')
@@ -77,18 +78,42 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		self.takeBadStudent_btn.clicked.connect(self.take_bad_student)
 		self.take_free_student.clicked.connect(self.take_free_student_func)
 
+		self.up_university_ten_btn.clicked.connect(lambda: self.up_university(10))
+		self.up_university_ten_btn.setText(f'{100 * professor_level}$')
+		self.label_16.setText(f'+{10 * professor_level} мест в университете')
+
+		self.up_university_ten_hundred_btn.clicked.connect(lambda: self.up_university(100, ceil=1000))
+		self.up_university_ten_hundred_btn.setText(f'{1000 * professor_level}$')
+		self.label_17.setText(f'+{100 * professor_level} мест в университете')
+
+		self.up_university_thousand_btn.clicked.connect(lambda: self.up_university(1000, ceil=10000))
+		self.up_university_thousand_btn.setText(f'{10000 * professor_level}$')
+		self.label_18.setText(f'+{100 * professor_level} мест в университете')
+
 		self.takeGoodStudent_btn.setText(f'{100 * professor_level}$')
 		self.takeBadStudent_btn.setText(f'{15 * professor_level}$')
 		self.takeMiddleStudent_btn.setText(f'{50 * professor_level}$')
+
+	def up_university(self, count, ceil=100):
+		global university_seats
+		global money
+
+		if money >= ceil * professor_level:
+			money -= 100 * professor_level
+			university_seats += count * professor_level
+			self.students_label.setText(f'Студенты: {students}/{university_seats}')
+		else:
+			print('Не хватает денег')
 
 	def take_free_student_func(self):
 		global money
 		global students
 		global income
 
-		if students < 100 * professor_level:
+		if students < university_seats * professor_level:
 			students += 1 * knowledge
 			self.students_label.setText(f'Студенты: {students}')
+			self.students_label.setText(f'Студенты: {students}/{university_seats}')
 		else:
 			print('В университете не хватает места')
 
@@ -97,14 +122,15 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if money > 15 * professor_level and students < 100 * professor_level:
+		if money > 15 * professor_level and students < university_seats * professor_level:
 			money -= 15
 			students += 1 * knowledge
 			income += 1 * professor_level
 			self.students_label.setText(f'Студенты: {students}')
 			self.money_label.setText(f'Деньги: {money}$')
 			self.income_label.setText(f'Доход: {income}$')
-		elif students >= 100 * professor_level:
+			self.students_label.setText(f'Студенты: {students}/{university_seats}')
+		elif students >= university_seats * professor_level:
 			print('В университете не хватает места')
 		else:
 			print('Не хватает денег')
@@ -114,14 +140,15 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if money > 50 * professor_level and students < 100 * professor_level:
+		if money > 50 * professor_level and students < university_seats * professor_level:
 			money -= 50
 			students += 1 * knowledge
 			income += 5 * professor_level
 			self.students_label.setText(f'Студенты: {students}')
 			self.money_label.setText(f'Деньги: {money}$')
 			self.income_label.setText(f'Доход: {income}$')
-		elif students >= 100 * professor_level:
+			self.students_label.setText(f'Студенты: {students}/{university_seats}')
+		elif students >= university_seats * professor_level:
 			print('В университете не хватает места')
 		else:
 			print('Не хватает денег')
@@ -131,14 +158,15 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if money > 100 * professor_level and students < 100 * professor_level:
+		if money > 100 * professor_level and students < university_seats * professor_level:
 			money -= 100
 			students += 1 * knowledge
 			income += 10 * professor_level
 			self.students_label.setText(f'Студенты: {students}')
 			self.money_label.setText(f'Деньги: {money}$')
 			self.income_label.setText(f'Доход: {income}$')
-		elif students >= 100 * professor_level:
+			self.students_label.setText(f'Студенты: {students}/{university_seats}')
+		elif students >= university_seats * professor_level:
 			print('В университете не хватает места')
 		else:
 			print('Не хватает денег')
