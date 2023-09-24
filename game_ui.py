@@ -2258,7 +2258,7 @@ class Ui_MainWindow(object):
         self.level_label = QtWidgets.QLabel(parent=self.centralwidget)
         self.level_label.setGeometry(QtCore.QRect(0, 90, 721, 111))
         self.level_label.setStyleSheet("font: italic 28pt \"Source Code Pro\";\n"
-"background: #303039;")
+"background: #29333D;")
         self.level_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.level_label.setObjectName("level_label")
         self.tabWidget = QtWidgets.QTabWidget(parent=self.centralwidget)

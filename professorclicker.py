@@ -8,7 +8,7 @@ from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
 money = 0
 students = 0
-income = 1000
+income = 10000000
 university_seats = 100
 knowledge = 1
 professor_level = 1
@@ -78,27 +78,60 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		self.takeBadStudent_btn.clicked.connect(self.take_bad_student)
 		self.take_free_student.clicked.connect(self.take_free_student_func)
 
-		self.up_university_ten_btn.clicked.connect(lambda: self.up_university(10))
+		self.up_university_ten_btn.clicked.connect(lambda: self.up_university(10, price=100 * professor_level))
 		self.up_university_ten_btn.setText(f'{100 * professor_level}$')
 		self.label_16.setText(f'+{10 * professor_level} мест в университете')
 
-		self.up_university_ten_hundred_btn.clicked.connect(lambda: self.up_university(100, ceil=1000))
+		self.up_university_ten_hundred_btn.clicked.connect(lambda: self.up_university(100, price=1000 * professor_level))
 		self.up_university_ten_hundred_btn.setText(f'{1000 * professor_level}$')
 		self.label_17.setText(f'+{100 * professor_level} мест в университете')
 
-		self.up_university_thousand_btn.clicked.connect(lambda: self.up_university(1000, ceil=10000))
+		self.up_university_thousand_btn.clicked.connect(lambda: self.up_university(1000, price=10000 * professor_level))
 		self.up_university_thousand_btn.setText(f'{10000 * professor_level}$')
-		self.label_18.setText(f'+{100 * professor_level} мест в университете')
+		self.label_18.setText(f'+{1000 * professor_level} мест в университете')
+
+		self.simple_course_btn.setText(f'{50 * professor_level}$')
+		self.simple_course_btn.clicked.connect(lambda: self.learn_course('simple', 50 * professor_level))
+
+		self.hundred_math_btn.setText(f'{100 * professor_level}$')
+		self.hundred_math_btn.clicked.connect(lambda: self.learn_course('basic', 100 * professor_level))
+
+		self.thousand_math_btn.setText(f'{1000 * professor_level}$')
+		self.thousand_math_btn.clicked.connect(lambda: self.learn_course('middle', 1000 * professor_level))
+
+		self.five_thousands_math_btn.setText(f'{5000 * professor_level}$')
+		self.five_thousands_math_btn.clicked.connect(lambda: self.learn_course('pro', 5000 * professor_level))
 
 		self.takeGoodStudent_btn.setText(f'{100 * professor_level}$')
 		self.takeBadStudent_btn.setText(f'{15 * professor_level}$')
 		self.takeMiddleStudent_btn.setText(f'{50 * professor_level}$')
 
-	def up_university(self, count, ceil=100):
+	def learn_course(self, course_type, price):
+		global money
+		global knowledge
+
+		if money >= price:
+			money -= price
+
+			if course_type == 'simple':
+				knowledge += 1 * professor_level
+			elif course_type == 'basic':
+				knowledge += 5 * professor_level
+			elif course_type == 'middle':
+				knowledge += 10 * professor_level
+			elif course_type == 'pro':
+				knowledge += 50 * professor_level
+
+			self.money_label.setText(f'Деньги: {money}$')
+			self.knowledge_label.setText(f'Знания: {knowledge}')
+		else:
+			print('Не хватает денег')
+
+	def up_university(self, count, price=100):
 		global university_seats
 		global money
 
-		if money >= ceil * professor_level:
+		if money >= price * professor_level:
 			money -= 100 * professor_level
 			university_seats += count * professor_level
 			self.students_label.setText(f'Студенты: {students}/{university_seats}')
@@ -110,7 +143,7 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if students < university_seats * professor_level:
+		if students + 1 * knowledge <= university_seats * professor_level:
 			students += 1 * knowledge
 			self.students_label.setText(f'Студенты: {students}')
 			self.students_label.setText(f'Студенты: {students}/{university_seats}')
@@ -122,7 +155,7 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if money > 15 * professor_level and students < university_seats * professor_level:
+		if money >= 15 * professor_level and students + 1 * knowledge <= university_seats * professor_level:
 			money -= 15
 			students += 1 * knowledge
 			income += 1 * professor_level
@@ -140,7 +173,7 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if money > 50 * professor_level and students < university_seats * professor_level:
+		if money >= 50 * professor_level and students + 1 * knowledge <= university_seats * professor_level:
 			money -= 50
 			students += 1 * knowledge
 			income += 5 * professor_level
@@ -158,7 +191,7 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		global students
 		global income
 
-		if money > 100 * professor_level and students < university_seats * professor_level:
+		if money >= 100 * professor_level and students + 1 * knowledge <= university_seats * professor_level:
 			money -= 100
 			students += 1 * knowledge
 			income += 10 * professor_level
@@ -176,18 +209,63 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 
 	def update_level(self, level):
 		self.player_lvl.setText(f'Уровень: {level}')
-		self.level_label.setText(levels_labels[level])
 
 		self.takeGoodStudent_btn.setText(f'{100 * professor_level}$')
 		self.takeBadStudent_btn.setText(f'{15 * professor_level}$')
 		self.takeMiddleStudent_btn.setText(f'{50 * professor_level}$')
 
-		if level > 3:
+		if level < 6:
 			pt = 35 - level // 2
 			if pt < 20:
 				pt = 20
 			self.level_label.setStyleSheet(f"font: italic {pt}pt \"Source Code Pro\";\n"
 "background: #303039;")
+			self.level_label.setText(levels_labels[level])
+		else:
+			self.level_label.setStyleSheet(f"font: italic 30pt \"Source Code Pro\";\n"
+"background: #303039;")
+			self.level_label.setText('f(t + dt) = f(t) x e^bxdt')
+
+		self.money_label.setText(f'Деньги: {money}$')
+		self.income_label.setText(f'Доход: {income}$')
+		self.player_lvl.setText(f'Уровень: {professor_level}')
+		self.students_label.setText(f'Студенты: {students}/{university_seats}')
+		self.knowledge_label.setText(f'Знания: {knowledge}')
+
+		self.player_lvl.setText(f'Уровень: {professor_level}')
+
+		self.takeGoodStudent_btn.clicked.connect(self.take_good_student)
+		self.takeMiddleStudent_btn.clicked.connect(self.take_middle_student)
+		self.takeBadStudent_btn.clicked.connect(self.take_bad_student)
+		self.take_free_student.clicked.connect(self.take_free_student_func)
+
+		self.up_university_ten_btn.clicked.connect(lambda: self.up_university(10, price=100 * professor_level))
+		self.up_university_ten_btn.setText(f'{100 * professor_level}$')
+		self.label_16.setText(f'+{10 * professor_level} мест в университете')
+
+		self.up_university_ten_hundred_btn.clicked.connect(lambda: self.up_university(100, price=1000 * professor_level))
+		self.up_university_ten_hundred_btn.setText(f'{1000 * professor_level}$')
+		self.label_17.setText(f'+{100 * professor_level} мест в университете')
+
+		self.up_university_thousand_btn.clicked.connect(lambda: self.up_university(1000, price=10000 * professor_level))
+		self.up_university_thousand_btn.setText(f'{10000 * professor_level}$')
+		self.label_18.setText(f'+{1000 * professor_level} мест в университете')
+
+		self.simple_course_btn.setText(f'{50 * professor_level}$')
+		self.simple_course_btn.clicked.connect(lambda: self.learn_course('simple', 50 * professor_level))
+
+		self.hundred_math_btn.setText(f'{100 * professor_level}$')
+		self.hundred_math_btn.clicked.connect(lambda: self.learn_course('basic', 100 * professor_level))
+
+		self.thousand_math_btn.setText(f'{1000 * professor_level}$')
+		self.thousand_math_btn.clicked.connect(lambda: self.learn_course('middle', 1000 * professor_level))
+
+		self.five_thousands_math_btn.setText(f'{5000 * professor_level}$')
+		self.five_thousands_math_btn.clicked.connect(lambda: self.learn_course('pro', 5000 * professor_level))
+
+		self.takeGoodStudent_btn.setText(f'{100 * professor_level}$')
+		self.takeBadStudent_btn.setText(f'{15 * professor_level}$')
+		self.takeMiddleStudent_btn.setText(f'{50 * professor_level}$')
 
 	def start_level_checker(self):
 		global professor_level
