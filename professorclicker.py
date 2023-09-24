@@ -8,7 +8,7 @@ from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
 money = 0
 students = 0
-income = 10000000
+income = 1
 university_seats = 100
 knowledge = 1
 professor_level = 1
