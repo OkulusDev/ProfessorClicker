@@ -16,8 +16,8 @@ levels_labels = {
 	1: '2 + x = 4',
 	2: '3 - (x + x) = 9',
 	3: '23 : 34x * 2z + 3 = ?',
-	4: '(x^4 + x^7)^8 + 21x^2y^9 = ?',
-	5: '(x^b27 + y^2xb)^bx + 34 * x^2yb^3 = ?'
+	4: '(x^4 + x)^8 + 21x^9 = ?',
+	5: '(x + y^2xb) * 2^3 = ?'
 }
 
 
@@ -78,29 +78,29 @@ class ProfessorClickerUI(QtWidgets.QMainWindow, game_ui.Ui_MainWindow):
 		self.takeBadStudent_btn.clicked.connect(self.take_bad_student)
 		self.take_free_student.clicked.connect(self.take_free_student_func)
 
-		self.up_university_ten_btn.clicked.connect(lambda: self.up_university(10, price=100 * professor_level))
-		self.up_university_ten_btn.setText(f'{100 * professor_level}$')
-		self.label_16.setText(f'+{10 * professor_level} мест в университете')
+		self.up_university_ten_btn.clicked.connect(lambda: self.up_university(10, price=1000 * professor_level))
+		self.up_university_ten_btn.setText(f'{1000 * professor_level}$')
+		self.label_16.setText(f'+{100 * professor_level} мест в университете')
 
-		self.up_university_ten_hundred_btn.clicked.connect(lambda: self.up_university(100, price=1000 * professor_level))
-		self.up_university_ten_hundred_btn.setText(f'{1000 * professor_level}$')
-		self.label_17.setText(f'+{100 * professor_level} мест в университете')
+		self.up_university_ten_hundred_btn.clicked.connect(lambda: self.up_university(1000, price=10000 * professor_level))
+		self.up_university_ten_hundred_btn.setText(f'{10000 * professor_level}$')
+		self.label_17.setText(f'+{1000 * professor_level} мест в университете')
 
-		self.up_university_thousand_btn.clicked.connect(lambda: self.up_university(1000, price=10000 * professor_level))
-		self.up_university_thousand_btn.setText(f'{10000 * professor_level}$')
-		self.label_18.setText(f'+{1000 * professor_level} мест в университете')
+		self.up_university_thousand_btn.clicked.connect(lambda: self.up_university(10000, price=100000 * professor_level))
+		self.up_university_thousand_btn.setText(f'{100000 * professor_level}$')
+		self.label_18.setText(f'+{10000 * professor_level} мест в университете')
 
-		self.simple_course_btn.setText(f'{50 * professor_level}$')
-		self.simple_course_btn.clicked.connect(lambda: self.learn_course('simple', 50 * professor_level))
+		self.simple_course_btn.setText(f'{5000 * professor_level}$')
+		self.simple_course_btn.clicked.connect(lambda: self.learn_course('simple', 5000 * professor_level))
 
-		self.hundred_math_btn.setText(f'{100 * professor_level}$')
-		self.hundred_math_btn.clicked.connect(lambda: self.learn_course('basic', 100 * professor_level))
+		self.hundred_math_btn.setText(f'{10000 * professor_level}$')
+		self.hundred_math_btn.clicked.connect(lambda: self.learn_course('basic', 10000 * professor_level))
 
-		self.thousand_math_btn.setText(f'{1000 * professor_level}$')
-		self.thousand_math_btn.clicked.connect(lambda: self.learn_course('middle', 1000 * professor_level))
+		self.thousand_math_btn.setText(f'{100000 * professor_level}$')
+		self.thousand_math_btn.clicked.connect(lambda: self.learn_course('middle', 100000 * professor_level))
 
-		self.five_thousands_math_btn.setText(f'{5000 * professor_level}$')
-		self.five_thousands_math_btn.clicked.connect(lambda: self.learn_course('pro', 5000 * professor_level))
+		self.five_thousands_math_btn.setText(f'{500000 * professor_level}$')
+		self.five_thousands_math_btn.clicked.connect(lambda: self.learn_course('pro', 500000 * professor_level))
 
 		self.takeGoodStudent_btn.setText(f'{100 * professor_level}$')
 		self.takeBadStudent_btn.setText(f'{15 * professor_level}$')
